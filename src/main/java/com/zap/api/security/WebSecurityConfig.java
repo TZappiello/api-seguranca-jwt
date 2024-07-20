@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
-    public BCryptPasswordEncoder encoder(){
+    public BCryptPasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -32,6 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/swagger-ui.html",
             "/webjars/**"
     };
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.headers().frameOptions().disable();
@@ -40,17 +41,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(SWAGGER_WHITELIST).permitAll()
                 .antMatchers("/h2-console/**").permitAll()
-                .antMatchers(HttpMethod.POST,"/login").permitAll()
-                .antMatchers(HttpMethod.POST,"/usuarios").permitAll()
-                .antMatchers(HttpMethod.GET,"/usuarios").hasAnyRole("USERS","MANAGERS")
+                .antMatchers(HttpMethod.POST, "/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/usuarios").permitAll()
+                .antMatchers(HttpMethod.GET, "/usuarios").hasAnyRole("USERS", "MANAGERS")
                 .antMatchers("/admin").hasAnyRole("MANAGERS")
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
+
     @Bean //HABILITANDO ACESSAR O H2-DATABSE NA WEB
-    public ServletRegistrationBean h2servletRegistration(){
-        ServletRegistrationBean registrationBean = new ServletRegistrationBean( new WebServlet());
+    public ServletRegistrationBean h2servletRegistration() {
+        ServletRegistrationBean registrationBean = new ServletRegistrationBean(new WebServlet());
         registrationBean.addUrlMappings("/h2-console/*");
         return registrationBean;
     }
