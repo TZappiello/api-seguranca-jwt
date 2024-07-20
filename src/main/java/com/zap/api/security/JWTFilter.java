@@ -54,8 +54,7 @@ public class JWTFilter extends OncePerRequestFilter {
         }
     }
     private List<SimpleGrantedAuthority> authorities(List<String> roles){
-        return roles.stream()
-                .map(SimpleGrantedAuthority::new)
+        return roles.stream().map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
 }
