@@ -39,7 +39,7 @@ public class LoginController {
             JWTObject jwtObject = new JWTObject();
             jwtObject.setIssuedAt(new Date(System.currentTimeMillis()));
             jwtObject.setExpiration((new Date(System.currentTimeMillis() + SecurityConfig.EXPIRATION)));
-            jwtObject.setRoles(user.getPapeis());
+            jwtObject.setRoles(user.getRoles());
             sessao.setToken(JWTCreator.create(SecurityConfig.PREFIX, SecurityConfig.KEY, jwtObject));
             return sessao;
         } else {

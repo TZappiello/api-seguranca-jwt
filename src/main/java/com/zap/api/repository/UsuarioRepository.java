@@ -7,9 +7,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
-    @Query("FROM Usuario usuario JOIN FETCH usuario.papeis WHERE usuario.usuario= (:usuario)")
+    @Query("FROM Usuario usuario JOIN FETCH usuario.roles WHERE usuario.usuario= (:usuario)")
     Usuario findByUsername(@Param("usuario") String usuario);
 
     boolean existsByUsuario(String usuario);

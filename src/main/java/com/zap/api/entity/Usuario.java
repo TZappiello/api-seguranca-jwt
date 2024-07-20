@@ -15,7 +15,7 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
     @Column(length = 50, nullable = false)
     private String nome;
     @Column(length = 20, nullable = false)
@@ -26,5 +26,5 @@ public class Usuario {
     @CollectionTable(name = "tab_usuario_papel",
             joinColumns = @JoinColumn(name = "usuario_id"))
     @Column(name = "papel_id")
-    private List<String> papeis = new ArrayList<>();
+    private List<String> roles = new ArrayList<>();
 }
