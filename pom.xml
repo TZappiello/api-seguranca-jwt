@@ -30,7 +30,7 @@
 		<java.version>11</java.version>
 		<lombok.version>1.18.24</lombok.version> <!-- Adicione a versão do Lombok -->
 		<jjwt.version>0.7.0</jjwt.version>
-		<openapi.version>1.5.10</openapi.version>
+		<openapi.version>1.7.0</openapi.version>
 	</properties>
 	<dependencies>
 		<dependency>
