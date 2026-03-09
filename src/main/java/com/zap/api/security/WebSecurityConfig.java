@@ -24,32 +24,34 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private static final String[] SWAGGER_WHITELIST = {
-            "/v2/api-docs",
-            "/swagger-resources",
-            "/swagger-resources/**",
-            "/configuration/ui",
-            "/configuration/security",
-            "/swagger-ui.html",
-            "/webjars/**"
+            "/v3/api-docs/**",          // Rota para a documentação OpenAPI
+            "/swagger-ui/**",           // Rota para o Swagger UI
+            "/swagger-ui.html",         // Swagger UI
+            "/webjars/**",              // Arquivos estáticos usados pelo Swagger
+            "/swagger-resources/**",    // Recursos do Swagger
+            "/configuration/ui",        // Configuração do Swagger UI
+            "/configuration/security"   // Configuração de segurança do Swagger
     };
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.headers().frameOptions().disable();
-        http.cors().and().csrf().disable()
+        http.cors().and().csrf().disable() // Desativando CSRF para testes (cuidado em produção)
                 .addFilterAfter(new JWTFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers(SWAGGER_WHITELIST).permitAll()
-                .antMatchers("/h2-console/**").permitAll()
+                .antMatchers(SWAGGER_WHITELIST).permitAll()  // Liberando as rotas do Swagger
+                .antMatchers("/h2-console/**").permitAll()    // Liberando o H2 console
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/usuarios").permitAll()
                 .antMatchers(HttpMethod.GET, "/usuarios").hasAnyRole("USERS", "MANAGERS")
-                .antMatchers(HttpMethod.GET, "/usuarios/**").hasAnyRole( "MANAGERS")
+                .antMatchers(HttpMethod.GET, "/usuarios/**").hasAnyRole("MANAGERS")
                 .antMatchers("/admin").hasAnyRole("MANAGERS")
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
+
 
     @Bean //HABILITANDO ACESSAR O H2-DATABSE NA WEB
     public ServletRegistrationBean h2servletRegistration() {
