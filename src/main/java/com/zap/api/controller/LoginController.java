@@ -7,6 +7,8 @@ import com.zap.api.repository.UsuarioRepository;
 import com.zap.api.security.JWTCreator;
 import com.zap.api.security.JWTObject;
 import com.zap.api.security.SecurityConfig;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,13 +20,10 @@ import java.util.Date;
 
 @CrossOrigin()
 @RestController
+@RequiredArgsConstructor
 public class LoginController {
-    @Autowired
-    private PasswordEncoder encoder;
-    @Autowired
-    private SecurityConfig securityConfig;
-    @Autowired
-    private UsuarioRepository repository;
+    private final PasswordEncoder encoder;
+    private final UsuarioRepository repository;
 
     @PostMapping("/login")
     public Sessao logar(@RequestBody Login login) {
