@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 
-@CrossOrigin()
+@CrossOrigin(origins = "*")
 @RestController
 @RequiredArgsConstructor
 public class LoginController {
