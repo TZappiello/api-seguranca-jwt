@@ -3,6 +3,7 @@ package com.zap.api.controller;
 import com.zap.api.entity.Usuario;
 import com.zap.api.repository.UsuarioRepository;
 import com.zap.api.service.UsuarioService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -11,12 +12,12 @@ import java.util.Optional;
 
 @CrossOrigin()
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/usuarios")
 public class UsuarioController {
-    @Autowired
-    private UsuarioService service;
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioService service;
+
+    private final UsuarioRepository usuarioRepository;
 
     @PostMapping
     public void postUser(@RequestBody Usuario usuario) {
